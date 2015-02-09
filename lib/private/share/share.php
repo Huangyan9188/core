@@ -2335,6 +2335,11 @@ class Share extends \OC\Share\Constants {
 		$result = self::tryHttpPost($url, $fields);
 		$status = json_decode($result['result'], true);
 
+		if ($result['success'] === false) {
+			$uid = \OC::$server->getUserSession()->getUser()->getUID();
+			Helper::addToMessageQueue($url, $fields, $uid);
+		}
+
 		return ($result['success'] && $status['ocs']['meta']['statuscode'] === 100);
 	}
 
