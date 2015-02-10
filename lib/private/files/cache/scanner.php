@@ -136,7 +136,7 @@ class Scanner extends BasicEmitter {
 				if (is_null($cacheData)) {
 					$cacheData = $this->cache->get($file);
 				}
-				if ($cacheData and $reuseExisting) {
+				if ($cacheData and $reuseExisting and isset($cacheData['fileid'])) {
 					// prevent empty etag
 					if (empty($cacheData['etag'])) {
 						$etag = $data['etag'];
